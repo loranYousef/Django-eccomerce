@@ -77,9 +77,9 @@
                             <div class="details-list-group">
                                 <label class="details-list-title">tags:</label>
                                 <ul class="details-tag-list">
-                                    <li><a href="#">organic</a></li>
-                                    <li><a href="#">fruits</a></li>
-                                    <li><a href="#">chilis</a></li>
+                                    {% for tag in object.tags.all %}
+                                        <li><a href="#">{{tag}}</a></li>
+                                    {% endfor %}                               
                                 </ul>
                             </div>
                             <div class="details-list-group">
