@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from product.models import Product
 from django.contrib.auth.models import User
+from utils.generate_code import generate_code
 
 
 ORDER_STATUS = (
@@ -17,7 +18,7 @@ ORDER_STATUS = (
 
 
 class Order(models.Model):
-    order_code= models.CharField(max_length=10)
+    order_code= models.CharField(max_length=10,default=generate_code)
     user= models.ForeignKey(User,related_name='user_order',on_delete=models.SET_NULL,null=True,blank=True)
     order_status = models.CharField(max_length=10, choices= ORDER_STATUS, default='Recieved')
     delivery_date = models.DateTimeField(null=True,blank=True)
