@@ -5,6 +5,54 @@ from django.contrib.auth.models import User
 from utils.generate_code import generate_code
 
 
+
+
+CART_STATUS = (
+    ('Inprogress', 'Inprogress'),
+    ('Complete', 'Complete'),
+
+)
+
+
+
+
+
+class Cart(models.Model):
+    
+    user= models.ForeignKey(User,related_name='user_cart',on_delete=models.SET_NULL,null=True,blank=True)
+    cart_status = models.CharField(max_length=10, choices= CART_STATUS, default='Inprogress')
+    
+    
+
+    # def __str__(self):
+    #     return self.order_code
+    
+
+
+
+class CartDetail(models.Model):
+    cart=models.ForeignKey(Cart,related_name='cart_detail',on_delete=models.CASCADE)
+    product= models.ForeignKey(Product,related_name='cart_product',on_delete=models.SET_NULL,null=True, blank=True)
+    price =models.FloatField()
+    quantity = models.IntegerField(default=1)
+    total = models.FloatField(null=True,blank=True)
+
+    def __str__(self):
+        return str(self.order)
+    
+    def save(self, *args, **kwargs):
+       self.total =self.price * self.quantity
+       super(CartDetail, self).save(*args, **kwargs) 
+    
+
+
+
+
+
+
+
+
+
 ORDER_STATUS = (
     ('Recieved', 'Recieved'),
     ('Processed', 'Processed'),
