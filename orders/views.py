@@ -5,3 +5,4 @@ from .models import Order
 
 class OrderList(ListView):
     model = Order
+    context_object_name = 'orders'
