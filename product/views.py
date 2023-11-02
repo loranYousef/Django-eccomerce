@@ -8,6 +8,7 @@ from .models import Product , Brand
 
 class ProductList(ListView):
     model = Product 
+    paginate_by = 1
 
 
 class ProductDetail(DetailView):
@@ -16,6 +17,7 @@ class ProductDetail(DetailView):
 
 class BrandList(ListView):
     model = Brand
+    paginate_by = 1
     queryset = Brand.objects.all().annotate(product_count= Count('product_brand'))
 
 
