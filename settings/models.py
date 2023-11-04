@@ -8,7 +8,7 @@ class Company(models.Model):
     call_us= models.CharField(max_length=25)
     email_us= models.EmailField()
     about = models.TextField(max_length=1000)
-    
+
     fb_link = models.URLField(null=True,blank=True)
     tw_link = models.URLField(null=True,blank=True)
     ins_link = models.URLField(null=True,blank=True)
@@ -18,3 +18,6 @@ class Company(models.Model):
     phones =models.CharField(max_length=100)
     address =models.CharField(max_length=100)
 
+
+    def __str__(self):
+        return self.name
