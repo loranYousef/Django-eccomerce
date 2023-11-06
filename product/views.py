@@ -27,6 +27,7 @@ class Brand_Detail(ListView):
     model = Product
     paginate_by = 50
     template_name = 'product/brand_detail.html'
+    
 
     # queryset = Brand.objects.filter(slug=slug).annotate(product_count= Count('product_brand'))
     def get_queryset(self):
