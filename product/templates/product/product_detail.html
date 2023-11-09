@@ -44,7 +44,7 @@
                                     <li><img src="{{img.image.url}}" alt="product"></li>
                                 {% endfor %}
                                 
-                           
+                                
                             </ul>
                             <ul class="details-thumb">
                                 {% for img in object.product_image.all  %}
@@ -63,11 +63,12 @@
                             </div>
                             <div class="details-rating">
                                 <i class="active icofont-star"></i>
-                                <i class="active icofont-star"></i>
-                                <i class="active icofont-star"></i>
-                                <i class="active icofont-star"></i>
-                                <i class="icofont-star"></i>
-                                <a href="#">(3 reviews)</a>
+                                        <i class=" icofont-star {% if object.get_avg_rate.rate_avg > 0 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if object.get_avg_rate.rate_avg > 1 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if object.get_avg_rate.rate_avg > 2 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if object.get_avg_rate.rate_avg > 3 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if object.get_avg_rate.rate_avg > 4 %} active {% endif%} "></i>
+                                        <a href="product-video.html">({{object.product_review.all|length}})</a>
                             </div>
                             <h3 class="details-price">
                                 <del>$38.00</del>
@@ -123,7 +124,7 @@
 
 
         <!--=====================================
-                  PRODUCT TAB PART START
+                    PRODUCT TAB PART START
         =======================================-->
         <section class="inner-section">
             <div class="container">
@@ -290,7 +291,7 @@
 
 
         <!--=====================================
-                 PRODUCT RELATED PART START
+                    PRODUCT RELATED PART START
         =======================================-->
         <section class="inner-section">
             <div class="container">
@@ -777,7 +778,7 @@
             </div>
         </section>
         <!--=====================================
-                 PRODUCT RELATED PART END
+                    PRODUCT RELATED PART END
         =======================================-->
 
 {% endblock body  %}

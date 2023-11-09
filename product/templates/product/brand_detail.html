@@ -98,12 +98,12 @@
                                 </div>
                                 <div class="product-content">
                                     <div class="product-rating">
-                                        <i class="active icofont-star"></i>
-                                        <i class="active icofont-star"></i>
-                                        <i class="active icofont-star"></i>
-                                        <i class="active icofont-star"></i>
-                                        <i class="icofont-star"></i>
-                                        <a href="product-video.html">(3)</a>
+                                        <i class=" icofont-star {% if item.get_avg_rate.rate_avg > 0 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if item.get_avg_rate.rate_avg > 1 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if item.get_avg_rate.rate_avg > 2 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if item.get_avg_rate.rate_avg > 3 %} active {% endif%} "></i>
+                                        <i class=" icofont-star {% if item.get_avg_rate.rate_avg > 4 %} active {% endif%} "></i>
+                                        <a href="product-video.html">({{item.product_review.all|length}})</a>
                                     </div>
                                     <h6 class="product-name">
                                         <a href="product-video.html">{{item}}</a>

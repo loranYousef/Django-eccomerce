@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.views.generic import ListView , DetailView
 from django.db.models import Count
 from .models import Product , Brand
-from django.db.models import Q, F
+from django.db.models import Q, F, Value, Func, ExpressionWrapper, DecimalField , FloatField
+from django.db.models.aggregates import Sum , Avg, Min , Max , Count
+from django.db.models.functions import Concat
 
 # Q when we use (and, or) for serach lookup
 # F when say the value of column = value of another column (price(value) = quantity(value))
@@ -21,7 +23,11 @@ def query_Debug(request):
     # data = Product.objects.values_list('name','id','brand__name')
     # data = Product.objects.prefetch_related('brand').all() used with many ot many 
     # data = Product.objects.select_related('brand').all() used with one to one and freignkey
-    data = Product.objects.select_related('brand').all()
+    # data = Product.objects.aggregate(min_price=Min('price'),avg_price=Avg('price'))
+    # data = Product.objects.annotate(is_new=F('quantity')*2) add column for counting
+    # data = Product.objects.annotate(full_name =Concat('name',Value(' '),'flag'))
+    dis_price=ExpressionWrapper(F('price')*.8, output_field=DecimalField())
+    data = Product.objects.annotate(discounted_price=dis_price)
     
 
     return render(request,'product/productlist.html',{'data': data})
