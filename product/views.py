@@ -53,7 +53,6 @@ class ProductDetail(DetailView):
     
     
 
-
 def add_review(request,slug):
     product= Product.objects.get(slug=slug)
     if request.method == 'POST':
