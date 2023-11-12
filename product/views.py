@@ -2,11 +2,13 @@ from typing import Any
 from django.shortcuts import render, redirect
 from django.views.generic import ListView , DetailView
 from django.db.models import Count
-from .models import Product , Brand
+from .models import Product , Brand, Reviews
 from django.db.models import Q, F, Value, Func, ExpressionWrapper, DecimalField , FloatField
 from django.db.models.aggregates import Sum , Avg, Min , Max , Count
 from django.db.models.functions import Concat
 from .forms import ProductReviewForm
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 # Q when we use (and, or) for serach lookup
 # F when say the value of column = value of another column (price(value) = quantity(value))
@@ -44,6 +46,11 @@ class ProductList(ListView):
 
 class ProductDetail(DetailView):
     model = Product 
+    def get_context_data(self, **kwargs): 
+        context = super().get_context_data(**kwargs)
+        context["reviews"] = Reviews.objects.filter(product=self.get_object())
+        return context
+    
     
 
 
@@ -56,7 +63,13 @@ def add_review(request,slug):
             myform.user = request.user
             myform.product = product
             myform.save()
-    return redirect(f'/products/{product.slug}')
+
+    reviews= Reviews.objects.filter(product=product)
+    html = render_to_string('include/all_reviews.html',{'reviews':reviews, request:request})
+
+
+    
+    return JsonResponse({'result':html})
 
 
 class BrandList(ListView):
