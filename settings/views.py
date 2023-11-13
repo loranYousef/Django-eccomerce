@@ -7,6 +7,9 @@ from django.db.models import Count
 def home(request):
     brands = Brand.objects.all().annotate(product_count=Count('product_brand'))
     item_sale= Product.objects.filter(flag='Sale')[:10]
+    item_feature= Product.objects.filter(flag='Feature')[:6]
+    item_new= Product.objects.filter(flag='New')[:12]
+    reviews = Reviews.objects.all()[:6]
     
     
     
@@ -15,4 +18,8 @@ def home(request):
     return render(request,'settings/home.html',{
         'brands':brands,
         'item_sale':item_sale,
+        'item_feature':item_feature,
+        'item_new':item_new,
+        'reviews':reviews,
+        
     })
