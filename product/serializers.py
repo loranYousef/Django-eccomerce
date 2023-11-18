@@ -49,11 +49,30 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     brand = serializers.StringRelatedField()
     images = ProductImagesSerializer(source ='product_image', many= True)
-    
+    avg_rate= serializers.SerializerMethodField()
+    review_count = serializers.SerializerMethodField()
     
     class Meta:
         model = Product
         fields = '__all__'
+
+    def get_avg_rate(self,product):
+        avg= product.product_review.aggregate(rate_avg=Avg('rate'))
+        avg_rate = avg['rate_avg']
+        if avg_rate:
+            avg_rate = round(avg_rate,2)
+        else:
+            avg_rate = 0
+        return  avg_rate
+
+    def get_review_count(self,product):
+        reviews = product.product_review.all().count()
+        return reviews
+
+
+
+
+
 
 
 
