@@ -3,7 +3,7 @@ app_name = 'product'
 
 from .views import ProductList,ProductDetail,BrandList,Brand_Detail, query_Debug, add_review
 
-from .api import productlist_api, ProductListApi, ProducDetailApi
+from .api import productlist_api, ProductListApi, ProducDetailApi, BrandListApi, BrandDetailApi
 
 
 
@@ -21,7 +21,10 @@ urlpatterns = [
 #api urls
 # path('api/list',productlist_api, name='product list'),
 path('api/list', ProductListApi.as_view(), name='product list'),
+path('api/list/brands', BrandListApi.as_view(), name='brand list'),
+path('api/list/brands/<slug:slug>' , BrandDetailApi.as_view(), name='brand detail'),
 path('api/list/<slug:slug>' , ProducDetailApi.as_view(), name='product detail'),
+
 
 
 

@@ -4,11 +4,6 @@ from .models import Product, Brand
 
 
 
-class BrandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Brand
-        fields = '__all__'
-
 
 class ProductSerializer(serializers.ModelSerializer):
     # brand = BrandSerializer()
@@ -25,3 +20,23 @@ class ProductSerializer(serializers.ModelSerializer):
     
     # def myfunc(self,product):
     #     return product.price*1.1
+
+
+
+class BrandListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Brand
+        fields = '__all__'
+
+
+
+
+
+class BrandDetailSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(source ='product_brand', many=True)
+    class Meta:
+        model = Brand
+        fields = '__all__'
+
+
