@@ -17,7 +17,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     price_with_tax = serializers.SerializerMethodField()   #--add a column by adding function def get_ lecture 43
     # price_with_tax = serializers.SerializerMethodField(method_name='myfunc') --add a column by adding function
     avg_rate= serializers.SerializerMethodField()
-
+    review_count = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields = '__all__'
@@ -34,6 +34,9 @@ class ProductListSerializer(serializers.ModelSerializer):
             avg_rate = 0
         return  avg_rate
 
+    def get_review_count(self,product):
+        reviews = product.product_review.all().count()
+        return reviews
 
 
     
