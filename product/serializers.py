@@ -12,12 +12,12 @@ class ProductImagesSerializer(serializers.ModelSerializer):
         
 
 class ProductListSerializer(serializers.ModelSerializer):
-    # brand = BrandSerializer()
-    brand = serializers.StringRelatedField()
+    # brand = BrandSerializer()                          # hier when we want to show brand in website api
+    brand = serializers.StringRelatedField()                #to show brand in website as Strin and not as number 
     price_with_tax = serializers.SerializerMethodField()   #--add a column by adding function def get_ lecture 43
     # price_with_tax = serializers.SerializerMethodField(method_name='myfunc') --add a column by adding function
     avg_rate= serializers.SerializerMethodField()
-    review_count = serializers.SerializerMethodField()
+    review_count = serializers.SerializerMethodField()  # we use it when func name is same as column, when not we should write method_name in SerializerMethodField(method_name= 'func name').
     class Meta:
         model = Product
         fields = '__all__'
@@ -62,7 +62,7 @@ class ProductReviewSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
 
     brand = serializers.StringRelatedField()
-    images = ProductImagesSerializer(source ='product_image', many= True)
+    images = ProductImagesSerializer(source ='product_image', many= True)    # when we want showing fotos in website api 
     avg_rate= serializers.SerializerMethodField()
     review_count = serializers.SerializerMethodField()
     reviews = ProductReviewSerializer(source = 'product_review', many=True)
