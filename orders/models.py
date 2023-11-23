@@ -9,7 +9,7 @@ from utils.generate_code import generate_code
 
 CART_STATUS = (
     ('Inprogress', 'Inprogress'),
-    ('Complete', 'Complete'),
+    ('Completed', 'Completed'),
 
 )
 

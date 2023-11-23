@@ -7,15 +7,39 @@ from .serializers import CartSerializer, CartDetailSerializer, OrderSerializer
 from django.contrib.auth.models import User
 
 
-class OrderListApi(generics.ListAPIView):
+class OrderListApi(generics.ListAPIView):  
     serializer_class = OrderSerializer
-    queryset = Order.objects.all()
+    queryset = Order.objects.all()    #  we need to appear all order from this user and not all order in system thats way we costumizing on queryset
 
-    def list(self, request,*args, **kwargs):
+    def list(self, request,*args, **kwargs): # request args kwargs : we use it when recive username from url 
         user = User.objects.get(username= self.kwargs['username'])
         queryset = self.get_queryset().filter(user=user)
         serializer = OrderSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class CreateOrder(generics.GenericAPIView):
+    def get(self,request,*args, **kwargs):    # request args kwargs : we use it when recive username from url 
+        user = User.objects.get(username= self.kwargs['username']) 
+        cart = Cart.objects.get(user=user, cart_status='Inprogress')
+        cart_data = CartDetail.objects.filter(cart =cart)
+
+    # create order
+        new_order = Order.objects.create(user=user)
+        for object in cart_data:
+            OrderDetail.objects.create(
+                order = new_order ,
+                product = object.product ,
+                price = object.price ,
+                quantity = object.quantity ,
+                total = object.total ,
+            )
+
+
+        cart.cart_status = 'Completed'
+        cart.save()
+        return Response({'Status':200 , 'message': 'order created  Successfully'})
+
 
 
 
