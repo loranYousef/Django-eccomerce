@@ -25,7 +25,8 @@ class CreateOrder(generics.GenericAPIView):
         cart_data = CartDetail.objects.filter(cart =cart)
 
     # create order
-        new_order = Order.objects.create(user=user)
+
+        new_order = Order.objects.create(user=user)  #here create order from cart detail [cart_data]. add cart details to your order
         for object in cart_data:
             OrderDetail.objects.create(
                 order = new_order ,
@@ -55,15 +56,13 @@ class CartDetailCreateApi(generics.GenericAPIView):
         return Response({'cart':data})
     
 
-    def post(self,request,*args, **kwargs):   # add data or Products to Cart
+    def post(self,request,*args, **kwargs):   # add data to your Cart details
         user_name = self.kwargs['username']
         user = User.objects.get(username=user_name)
 
         product = Product.objects.get(id=request.data['product_id'])
         quantity = int(request.data['quantity'])
     
-
-
         cart = Cart.objects.get(user=user, cart_status='Inprogress') # lecture 46 min:33:38
         cart_data,created = CartDetail.objects.get_or_create(cart =cart, product=product)
         cart_data.price = product.price

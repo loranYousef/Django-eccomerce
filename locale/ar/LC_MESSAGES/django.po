@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-24 09:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\product\models.py:20
+msgid "name"
+msgstr "الاسم"
+
+#: .\product\models.py:21 .\product\models.py:66
+msgid "image"
+msgstr "الصورة"
+
+#: .\product\models.py:22
+msgid "flag"
+msgstr "العلامة"
+
+#: .\product\models.py:23
+msgid "price"
+msgstr "السعر"
+
+#: .\product\models.py:24
+msgid "sku"
+msgstr "الكود"
+
+#: .\product\models.py:27
+msgid "subtitle"
+msgstr "وصف بسيط"
+
+#: .\product\models.py:28
+msgid "description"
+msgstr "الوصف"
+
+#: .\product\models.py:53 .\product\models.py:80
+msgid "product"
+msgstr "المنتج "
+
+#: .\product\models.py:65
+msgid "brand"
+msgstr "الماركة"
+
+#: .\product\models.py:79
+msgid "user"
+msgstr "المستخدم"
+
+#: .\product\models.py:81
+msgid "comment"
+msgstr "التعليق"
+
+#: .\product\models.py:82
+msgid "rate"
+msgstr "التقييم"
+
+#: .\src\templates\base.html:108
+msgid "offers"
+msgstr "العروض"
+
+#: .\src\templates\base.html:109
+msgid "need help"
+msgstr "المساعدة"
+
+#: .\src\templates\base.html:110
+msgid "contact us"
+msgstr "تواصل معنا"
+
+#: .\src\templates\base.html:180
+msgid "home"
+msgstr "الرئيسية"
+
+#: .\src\templates\base.html:184
+msgid "shop"
+msgstr "التسوق"
+
+#: .\src\templates\base.html:188
+#, fuzzy
+#| msgid "brand"
+msgid "Brands"
+msgstr "الماركة"
+
+#: .\src\templates\base.html:191
+msgid "Orders"
+msgstr "الطلبات"
+
+#: .\src\templates\base.html:198
+msgid "call us"
+msgstr "اتصل بنا"
+
+#: .\src\templates\base.html:205
+msgid "email us"
+msgstr "راسلنا"
