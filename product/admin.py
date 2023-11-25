@@ -3,17 +3,19 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Product , ProductImages , Brand , Reviews
+from tof.admin import TofAdmin, TranslationTabularInline
 
 class ProductImagesAdmin(admin.TabularInline):
     model= ProductImages 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TofAdmin):
     
     list_display=['id','name','brand','price']
     list_filter=['brand','price']
     inlines= [ProductImagesAdmin]
     search_fields= ['name','subtitle','description']
     list_editable = ['name','brand','price']
+    only_current_lang = ('description', )
     
     
     
@@ -32,3 +34,4 @@ admin.site.register(ProductImages)
 admin.site.register(Brand)
 admin.site.register(Reviews,ReviewAdmin)
 admin.site.site_header = "Project Admin"
+
