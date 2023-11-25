@@ -5,7 +5,7 @@ from django.db.models import Q
 
 
 
-class EmailBackend(ModelBackend):
+class EmailBackend(ModelBackend):   # this class can use when user login mobileNr also, just email_iexact with number , in database Mobile number should be unique =True 
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
             user = User.objects.get(
