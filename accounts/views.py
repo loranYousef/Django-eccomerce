@@ -6,7 +6,8 @@ from .models import Profile, Address, ContactNumbers
 def signup(request):
     pass
 
-
+def activate_account():
+    pass
 
 
 def profile(request):
@@ -20,4 +21,8 @@ def profile(request):
 
 
 def edit_profile(request):
+    pass
+
+
+def dashboard(request):
     pass
