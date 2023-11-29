@@ -43,7 +43,7 @@ class CartDetail(models.Model):
     total = models.FloatField(null=True,blank=True)
 
     def __str__(self):
-        return str(self.cart)
+        return str(self.product)
     
     # def save(self, *args, **kwargs):
     #    self.total =self.price * self.quantity
