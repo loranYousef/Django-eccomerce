@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Profile, Address, ContactNumbers
 from .forms import SignupForm, ActivateUser
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from product.models import Product, Brand, Reviews
+from orders.models import Order
 
 # Create your views here.
 
@@ -62,4 +65,26 @@ def edit_profile(request):
 
 
 def dashboard(request):
-    pass
+    users = User.objects.all().count()
+    products = Product.objects.all().count()
+    reviews = Reviews.objects.all().count()
+    brands = Brand.objects.all().count()
+    orders = Order.objects.all().count()
+
+
+    recieved = Order.objects.filter(order_status='Recieved').count()
+    processed = Order.objects.filter(order_status='Processed').count()
+    shipped = Order.objects.filter(order_status='Shipped').count()
+    delivered = Order.objects.filter(order_status='Delivered').count()
+
+    return render(request,'accounts/dashboard.html',{
+        'users': users,
+        'products':products ,
+        'reviews':reviews ,
+        'brands':brands ,
+        'orders':orders ,
+        'recieved':recieved ,
+        'processed':processed ,
+        'shipped':shipped ,
+        'delivered':delivered ,
+    })
