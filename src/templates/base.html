@@ -174,8 +174,8 @@
                         <button class="header-widget header-cart" title="Cartlist">
                             <i class="fas fa-shopping-basket"></i>
                             <sup>{{cart_detail|length}}+</sup>
-                            <span>total price<small>${{cart.cart_total}}</small></span> {% comment %} query in cart_context_processor named (cart) then . function name(cart_total) : {{cart.cart_total}} {% endcomment %}
-                        </button>
+                            <span>total price<small>${{cart.cart_total}} </small></span> {% comment %}   query in cart_context_processor named (cart) then . function name(cart_total) : {{cart.cart_total}}  {% endcomment %}
+                        </button>   {% comment %} cart.cart_total {% endcomment %}
                     </div>
                 </div>
             </div>

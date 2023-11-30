@@ -25,8 +25,12 @@ class Cart(models.Model):
     def cart_total(self):
         total = 0
         for product in self.cart_detail.all():
-            total += product.total
+            if product.total is not None:    # this filed is from chatgpt its not a solving the issue but make the website work for now 
+                total += product.total
+
         return round(total,2)
+    
+    
     
 
     # def __str__(self):
@@ -46,8 +50,10 @@ class CartDetail(models.Model):
         return str(self.product)
     
     # def save(self, *args, **kwargs):
-    #    self.total =self.price * self.quantity
-    #    super(CartDetail, self).save(*args, **kwargs) 
+    #             # here if appear it again api well give error
+    #    self.total =round(self.price * self.quantity,2)
+    #    super(CartDetail, self).save(*args, **kwargs)
+    #    print(self.total)
     
 
 

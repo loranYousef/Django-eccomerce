@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from .models import Order
+from .models import Order, Cart, CartDetail
+from product.models import Product
 
 
 class OrderList(ListView):
@@ -10,8 +11,16 @@ class OrderList(ListView):
 
 
 
-def add_to_cart():
-    pass
+def add_to_cart(request):
+    quantity = request.POST['quantity'] # request.POST.get('quantity') this tow ways is the same
+    product = Product.objects.get(id = request.POST['product_id'])
+    cart = Cart.objects.get(user = request.user, cart_status ='Inprogress')
+    cart_detail,created = CartDetail.objects.get_or_create(cart = cart, product = product)
+    cart_detail.quantity = quantity
+    cart_detail.price = product.price
+    cart_detail.total = round(int(quantity) * product.price)
+    cart_detail.save()
+    return redirect(f'/product/{product.slug}')
 
 
 

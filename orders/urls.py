@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import OrderList, add_to_cart, remove_from_cart, checkout, invoice
+from .views import OrderList, remove_from_cart, checkout, invoice ,add_to_cart
 from .api import CartDetailCreateApi, OrderListApi, CreateOrder
 
 app_name = 'orders'
