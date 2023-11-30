@@ -27,7 +27,8 @@ class Cart(models.Model):
         for product in self.cart_detail.all():
             if product.total is not None:    # this filed is from chatgpt its not a solving the issue but make the website work for now 
                 total += product.total
-
+            else:                            # this fild its also from chatgbt  else: self.total = 0 its not solve its just make website work 
+                self.total = 0
         return round(total,2)
     
     

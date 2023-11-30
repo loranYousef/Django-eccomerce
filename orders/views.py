@@ -20,16 +20,33 @@ def add_to_cart(request):
     cart_detail.price = product.price
     cart_detail.total = round(int(quantity) * product.price)
     cart_detail.save()
-    return redirect(f'/product/{product.slug}')
+    return redirect(f'/products/{product.slug}')
 
 
 
-def remove_from_cart():
-    pass
+def remove_from_cart(request,id ):
+    cart_detail = CartDetail.objects.get(id=id)
+    cart_detail.delete()
+    return redirect('/products')
 
 
-def checkout():
-    pass
+def checkout(request):
+
+    cart =Cart.objects.get(user = request.user, cart_status ='Inprogress')
+    cart_detail = CartDetail.objects.filter(cart = cart)
+
+
+    discount = 0
+    delivery_fee = 50
+    total = delivery_fee + cart.cart_total()
+    sub_total = cart.cart_total()
+    return render(request, 'orders/checkout.html',{'cart':cart,'cart_detail':cart_detail, 'delivery_fee':delivery_fee, 'total':total,'sub_total':sub_total,'discount':discount,})
+
+
+
+
+
+
 
 def invoice(request):
     pass 
