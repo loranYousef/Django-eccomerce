@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from .models import Order, Cart, CartDetail
+from django.shortcuts import get_object_or_404
+from datetime import datetime
+from .models import Order, Cart, CartDetail, Coupon
 from product.models import Product
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 
 class OrderList(ListView):
@@ -38,9 +42,31 @@ def checkout(request):
 
     discount = 0
     delivery_fee = 50
-    total = delivery_fee + cart.cart_total()
+    total = round(delivery_fee + cart.cart_total(),2)
     sub_total = cart.cart_total()
-    return render(request, 'orders/checkout.html',{'cart':cart,'cart_detail':cart_detail, 'delivery_fee':delivery_fee, 'total':total,'sub_total':sub_total,'discount':discount,})
+    
+    if request.method == 'POST':
+        
+        code = request.POST['coupon']
+        # copoun = Coupon.objects.get(code=code) # we dont need this line any more because we use get_object_or_404
+        coupon = get_object_or_404(Coupon, code=code)
+        today_date = datetime.today().date()
+
+        if coupon and coupon.quantity > 0 :
+            
+            if today_date >= coupon.from_date and today_date <= coupon.to_date:
+                
+                code_value = cart.cart_total() / 100 * coupon.value 
+                discount = round(code_value,2)
+                total = round(cart.cart_total() - code_value,2)
+                total = total + delivery_fee
+                html = render_to_string('include/checkout_table.html',{'cart':cart,'cart_detail':cart_detail,'delivery_fee':delivery_fee,'total':total,'sub_total':sub_total,'discount':discount})
+                return JsonResponse({'result': html})
+
+
+
+
+    return render(request, 'orders/checkout.html',{'cart':cart,'cart_detail':cart_detail,'delivery_fee':delivery_fee,'total':total,'sub_total':sub_total,'discount':discount,})
 
 
 
