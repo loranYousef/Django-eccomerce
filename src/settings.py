@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     "django_bootstrap5",
+    
     'tof',
     'rosetta',
     'product',
@@ -183,3 +186,7 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']    
+
+
+BROKER_URL ='redis://localhost:6379'
+CELERY_RESULT_BACKEND='redis://localhost:6379'

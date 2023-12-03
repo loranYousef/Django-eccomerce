@@ -88,3 +88,9 @@ def dashboard(request):
         'shipped':shipped ,
         'delivered':delivered ,
     })
+
+from.tasks import send_build_emails
+def test_send(request):
+    send_build_emails.delay(5)
+
+    return render(request,'test_celery.html', {})
